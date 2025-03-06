@@ -59,7 +59,7 @@ const SkillItem = ({ name, icon, link }: { name: string; icon: React.ReactNode; 
         >
             <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
                 <div className="text-7xl mb-4">{icon}</div>
-                <span className="text-base font-medium hover:underline">{name}</span>
+                <span className="text-base font-medium">{name}</span>
             </a>
         </motion.div>
     );

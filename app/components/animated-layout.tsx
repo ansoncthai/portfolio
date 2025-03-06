@@ -1,18 +1,20 @@
 'use client'
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
+
 import { useState, useEffect } from "react"
 import Name from "./name"
 
 export default function AnimatedLayout({ children }: { children: React.ReactNode }) {
     const [showContent, setShowContent] = useState(false)
+    const [maskAnimationComplete, setMaskAnimationComplete] = useState(false)
 
     useEffect(() => {
         document.body.style.overflow = 'hidden'
 
         const timer = setTimeout(() => {
             setShowContent(true)
-            document.body.style.overflow = 'auto'
+            // Keep overflow hidden until mask animation completes
         }, 7000)
 
         return () => {
@@ -21,37 +23,46 @@ export default function AnimatedLayout({ children }: { children: React.ReactNode
         }
     }, [])
 
+    // Enable scrolling after mask animation completes
+    useEffect(() => {
+        if (maskAnimationComplete) {
+            document.body.style.overflow = 'auto'
+        }
+    }, [maskAnimationComplete])
+
     return (
         <>
-            {/* Header */}
-            {showContent && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 1,
-                        delay: 1.5
-                    }}
-                    className="mt-24"
-                >
-                    {Array.isArray(children) ? children[0] : children}
-                </motion.div>
-            )}
-
             {/* Name component */}
             <Name isAnimationComplete={showContent} />
 
-            {/* Rest of the content */}
+            {/* Content with mask animation */}
             {showContent && (
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    className="fixed inset-0 bg-background"
+                    initial={{
+                        clipPath: 'polygon(50% 25%, 50% 35%, 50% 75%, 50% 65%)',
+                        zIndex: 20
+                    }}
+                    animate={{
+                        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                        zIndex: 20
+                    }}
                     transition={{
-                        duration: 1,
+                        duration: 1.4,
+                        ease: "easeOutCubic",
                         delay: 2
                     }}
+                    onAnimationComplete={() => setMaskAnimationComplete(true)}
                 >
-                    {Array.isArray(children) ? children.slice(1) : null}
+                    <div className="h-screen overflow-y-auto">
+                        <div className="pt-20">
+                            {/* Header */}
+                            {Array.isArray(children) ? children[0] : children}
+
+                            {/* Rest of content */}
+                            {Array.isArray(children) ? children.slice(1) : null}
+                        </div>
+                    </div>
                 </motion.div>
             )}
         </>
