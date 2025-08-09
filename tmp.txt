@@ -1,0 +1,93 @@
+ef sol(vector, index):
+    if index == len(vector) - 1:
+        return vector[index]
+    else:
+        max_in_rest = sol(vector, index + 1)
+        if vector[index] > max_in_rest:
+            return vector[index]
+        else:
+            return max_in_rest
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int findMax(const vector<int>& vec, int index) {
+    if (index == vec.size() - 1) {
+        return vec[index];  // Base case: last element
+    }
+    
+    int max_in_rest = findMax(vec, index + 1); // Recursive call
+
+    if (vec[index] > max_in_rest) { // Compare current element with max of rest
+        return vec[index];
+    } else {
+        return max_in_rest;
+    }
+}
+
+int main() {
+    vector<int> vec = {3, 1, 7, 9, 2, 8}; // Example array
+    cout << "Maximum element: " << findMax(vec, 0) << endl;
+    return 0;
+}
+
+def sol(l1, l2):
+    i1 = 0
+    i2 = 0
+    result = []
+    
+    while i1 < len(l1) and i2 < len(l2):
+        if l1[i1] == l2[i2]:
+            result.append(l1[i1])
+            i1 += 1
+            i2 += 1
+        elif l2[i2] < l1[i1]:
+            i2 += 1
+        else:
+            i1 += 1
+    
+    return result
+
+
+#include <iostream>
+#include <list>
+using namespace std;
+
+list<int> findIntersection(const list<int>& l1, const list<int>& l2) {
+    auto it1 = l1.begin();
+    auto it2 = l2.begin();
+    list<int> result;
+
+    while (it1 != l1.end() && it2 != l2.end()) {
+        if (*it1 == *it2) {
+            result.push_back(*it1);
+            ++it1;
+            ++it2;
+        } else if (*it2 < *it1) {
+            ++it2;
+        } else {
+            ++it1;
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    list<int> l1 = {1, 2, 4, 5, 6};
+    list<int> l2 = {2, 4, 6, 8};
+
+    list<int> intersection = findIntersection(l1, l2);
+
+    cout << "Intersection: ";
+    for (int num : intersection) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+        
+

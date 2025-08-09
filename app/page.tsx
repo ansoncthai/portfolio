@@ -22,7 +22,7 @@ export default function Home() {
 
     return (
         <motion.main
-            className="w-full min-h-screen px-4 py-4 bg-background text-white flex flex-col justify-center"
+            className="w-full min-h-screen px-4 py-2 bg-background text-white flex flex-col justify-center"
             initial="hidden"
             animate="visible"
             variants={{
@@ -33,7 +33,7 @@ export default function Home() {
 
             {/* Hero Section */}
             <motion.section
-                className="text-center py-6"
+                className="text-center pt-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}

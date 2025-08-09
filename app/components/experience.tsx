@@ -15,7 +15,7 @@ const experiences: Experience[] = [
         company: "Cypress-Fairbanks ISD",
         period: "July 2023 - August 2024",
         location: "Cypress, Texas, United States",
-        image: "/path/to/your/image.jpg",  // Add image URL here
+        image: "/CFISD.png",  // Add image URL here
         responsibilities: [
             "Provide percussion instruction and guidance to students",
             "Develop leadership and team-building skills among students",
@@ -28,6 +28,7 @@ const experiences: Experience[] = [
         company: "Fort Bend ISD",
         period: "July 2022 - August 2024",
         location: "Sugar Land, Texas, United States",
+        image: "/FBISD.png",
         responsibilities: [
             "Taught 30+ students over the duration of the contract",
             "Developed leadership, team-building, and mentoring skills",
